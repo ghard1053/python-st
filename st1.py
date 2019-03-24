@@ -167,3 +167,57 @@ li sorted(
     reverse = True
 )
 
+
+nums = [1, 2, 3]
+i = iter(nums)
+next(i)
+
+i = iter(range(1, 4))
+
+def gen1to3():
+    yield 1:
+    yield 2:
+    yield 3:
+it = gen1to3():
+for i in it:
+    print(i)
+
+def gen1to3(): yield 1; yield 2; yield 3
+
+def genOdd():
+    i = 1
+    while i <= 30:
+        yield i
+        i += 2
+
+it = genOdd()
+for v in it:
+    print(v, end=",")
+
+
+def genPrime(maxnum):
+    num = 2
+    while (num <= maxnum):
+        is_prime = True
+        for i in range(2, num):
+            if (num % i) == 0:
+                is_prime = False
+                break
+        if (is_prime): yield num
+        num += 1
+
+it = genPrime(50)
+for i in it:
+    print(i, end=",")
+
+
+s = input("体重: ")
+try:
+    v = 100 / float(s)
+    print(v)
+except ValueError as e:
+    print(e)
+except ZeroDivisionError as e:
+    print(e)
+except:
+    print("other error")
