@@ -38,3 +38,37 @@ with open("mt7_7.txt", encoding="utf-8") as tf:
     for i, line in enumerate(tf):
         if line.find(key) >= 0:
             print(i+1, ":", line)
+
+
+import json
+
+data = {
+  "no": 5,
+  "code": ("jas", 1, 19),
+  "src": "be quick to listen, slow to speak, slow to anger"
+}
+
+filename = "test.json"
+with open(filename, "w") as fp:
+    json.dump(data, fp)
+
+with open(filename, "r") as fp:
+    r = json.load(fp)
+    print("no =", r["no"])
+    print("code =", r["code"])
+    print("src =", r["src"])
+
+
+# コマンドラインツール
+import sys
+
+for i, v in enumerate(sys.argv):
+    print(i, v)
+
+
+import sys
+import os
+
+if len(sys.argv) <= 1:
+    print("[USAGE] findtext (keyword)")
+    sys.exit(0)
