@@ -92,3 +92,107 @@ for root, dirs, files in os.walk("."):
             print("+ file: " + fi)
             for li in result:
                 print(li)
+
+# ----------------
+import sys
+import os
+import fnmatch
+import datetime
+import math
+
+if len(sys.argv) <= 1:
+    print("[USAGE] findfile [--name][--wild][--desc] name")
+    sys.exit(0)
+
+serch_mode = "name"
+serch_func = lambda target, name : (target == name)
+name = ""
+desc_mode = False
+
+for v in sys.argv:
+    if v == "--name":
+        serch_mode = "name"
+        serch_func = lambda target, name : (target == name)
+    elif v == "--wild":
+        serch_mode = "wild"
+        serch_func = lambda target, pat : fnmatch.fnmatch(target, pat)
+    elif v == "--desc": desc_mode = True
+    else:
+        name = v
+
+print("+ option")
+print("| serch_mode=", serch_mode, name)
+print("| desc_mode=", desc_mode)
+
+for root, dirs, files in os.walk("."):
+    for fname in files:
+        path = os.path.join(root, fname)
+        b = serch_func(fname, name)
+        if b == False: continue
+        if desc_mode:
+            info = os.stat(path)
+            kb = math.ceil(info.st_size / 1024)
+            mt = datetime.datetime.fromtimestamp(info.st_mtime)
+            s = "{0},{1}KB,{2}".format(path, kb, mt.strftime("%Y-%m-%d"))
+            print(s)
+        else:
+            print(path)
+
+
+import os
+
+print("script path=", __file__)
+print("script dir=", os.path.dirname(__file__))
+
+
+# 正規表現
+
+import re
+pat = r"\d+"
+str = "This pen is 100yen."
+re.search(pat, str) # match='100'
+
+import re
+
+words = [
+    "orange", "october", "octpus",
+    "order", "banana", "baby", "busy"
+]
+
+pattern = r"oc.*"
+print("oc- pattern = ", pattern)
+for word in words:
+    if re.match(pattern, word):
+        print("-", word)
+
+pattern = r"b.*y"
+print("b- -y = ", pattern)
+for word in words:
+    if re.match(pattern, word):
+        print("-", word)
+
+
+# List Comprehensions
+
+data = [ (i * 2 - 1) for i in range(1, 6) ]
+data = [ i for i in range(1, 11) if i % 2 == 1 ]
+
+base = [1, 2, 3]
+result = [ (x, y) for x in base for y in base ]
+result = [ (x, y) for x in base for y in base if x != y ]
+
+res = [
+    "Fizz Buzz" if i % 15 == 0 else "Fizz"
+                if i %  3 == 0 else "Buzz"
+                if i %  5 == 0 else str(i)
+    for i in range(1, 21)
+]
+print("\n".join(res))
+
+{ "h"+str(x) : x*5 for x in range(1, 4) }
+
+( x**2 for x in [1, 2, 3] )
+
+
+# decorator
+
