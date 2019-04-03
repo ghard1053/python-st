@@ -183,3 +183,78 @@ def main():
 if __name__ == '__main__':
     main()
 
+
+# --------
+
+from sklearn import cross_validation, svm, metrics
+
+wine_csv = []
+with open("winequality-white.csv", "r", encoding="utf-8") as fp:
+    no = 0
+    for line in fp:
+        line = line.strip()
+        cols = line.split(";")
+        wine_csv.append(cols)
+
+wine_csv = wine_csv[1:]
+
+labels = []
+data = []
+for cols in wine_csv:
+    cols = list(map(lambda n: float(n), cols))
+    grade = int(cols[11])
+    if grade == 9: grade = 8
+    if grade < 4 : grade = 5
+    labels.append(grade)
+    data.append( cols[0:11] )
+
+data_train, data_test, label_train, label_test = 
+    cross_validation.train_test_split(data, labels)
+
+from sklearn.ensemble import RandomForestClassifier
+clf = RandomForestClassifier()
+clf.fit(data_train, label_train)
+
+predict = clf.predict(data_test)
+total = ok = 0
+for idx, pre in enumerate(predict):
+    # pre = predict[idx]
+    answer = label_test[idx]
+    total += 1
+    if (pre - 1) <= answer <= (pre + 1):
+        ok += 1
+
+print("", ok, "/", total, "=", ok/total)
+
+# ac_score = metrics.accuracy_score(label_test, predict)
+# cl_report = metrics.classification_report(label_test, predict)
+# print("", ac_score)
+# print("", cl_report)
+
+# --------
+
+import pandas as pd
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d.axes3d import Axes3D
+
+wine = pd.read_csv("winequality-white.csv", delimiter = ";")
+
+y = wine["quality"]
+
+xname = "alcohol"
+yname = "sulphates"
+zname = "total sulfur dioxide"
+
+plt.style.use('ggplot')
+fig = plt.figure()
+ax = Axes3D(fig)
+ax.set_xlabel(xname)
+ax.set_ylabel(yname)
+ax.set_zlabel(zname)
+ax.scatter3D(
+    wine[xname],
+    wine[yname],
+    wine[zname],
+    c = y, s = y**2, cmap = "cool"
+)
+plt.show()
