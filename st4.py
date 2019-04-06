@@ -92,3 +92,71 @@ class Kawase:
         return usd
 
 print("USD:JPY = 1:", Kawase.get_usd_jpy())
+
+
+# --------
+class Pos:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+    
+    def __add__(self, other):
+        x2 = self.x + other.x
+        y2 = self.y + other.y
+        return Pos(x2, y2)
+
+    def __mul__(self, other):
+        if isinstance(other, (int, float)):
+            x2 = self.x * other
+            y2 = self.y * other
+            return Pos(x2, y2)
+
+    def __str__(self):
+        return "({0}, {1})".format(self.x, self.y)
+
+
+# --------
+class Tukimei:
+    tuki = ["", "", ""]
+    def __getitem__(self, key):
+        i = int(key)
+        return self.tuki[i - 1]
+    def __setitem__(self,key,value):
+        i = int(key)
+        self.tuki[i - 1] = value
+
+t = Tukimei()
+print(t[3])
+t[10] = ""
+
+
+# --------
+class PrimeIter:
+    def __init__(self, max):
+        self.max = max
+
+    def __iter__(self):
+        self.n = 1
+        return self
+    
+    def __next__(self):
+        is_prime = False
+        self.n += 1
+        while not is_prime:
+            is_prime = True
+            for i in range(2, self.n):
+                if self.n % i == 0:
+                    is_prime = False
+                    break
+            if is_prime: break
+            self.n += 1
+            if self.n >= self.max:
+                raise StopIteration
+        return self.n
+
+it = PrimeIter(100)
+for no in it:
+    print(no, end = ",")
+
+
+# --------
