@@ -160,3 +160,68 @@ for no in it:
 
 
 # --------
+class Clock:
+    def __init__(self, hour):
+        self._hour = hour
+        self._ampm = "am"
+    
+    @property
+    def hour(self):
+        return self._hour
+    
+    @hour.setter
+    def hour(self, value):
+        self._hour = value % 12
+        self._ampm = "am" if value <= 12 else "pm"
+    
+    @property
+    def ampm(self):
+        return self._ampm
+
+
+# --------
+from abc import ABCMeta, abstractmethod
+
+class MazeRobot(metaclass=ABCMeta):
+
+    @abstractmethod
+    def init_robot(self): pass
+
+    @abstractmethod
+    def choose_dir(self): pass
+
+
+from abc_robot import MazeRobot
+
+class MazeRobotTest(MazeRobot):
+
+    def init_robot(self):
+        print()
+    def choose_dir(self):
+        print()
+
+robot = MazeRobotTest()
+robot.init_robot()
+
+
+# --------
+import unittest, turukame
+
+class TestTurukame(unittest.TestCase):
+
+    def setUp(self):
+
+    def tearDown(self):
+        # 
+        pass
+
+    def test_turukame(self):
+        turu, kame = turukame.calc_turukame(
+            turukame.Turu(),
+            turukame.Kame(),
+            heads = 10,
+            legs = 28
+        )
+
+        self.assertEqual(turu, 6, "")
+        self.assertEqual(kame, 4, "")
