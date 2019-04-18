@@ -94,11 +94,16 @@ plt.show()
 
 
 # 円の描画
+a = 200
+b = 300
+
 r = 300
-x = np.arange(-r, r+1)
-y = np.sqrt(r**2 - x**2)
+x = np.arange(a-r, a+r+1)
+y = np.sqrt(r**2 - (x-a)**2) + b
+y2 = -y + 2*b
 
 plt.plot(x, y)
+plt.plot(x, y2)
 plt.axis('equal')
 plt.grid(color='0.8')
 plt.show()
