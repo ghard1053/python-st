@@ -94,6 +94,11 @@ plt.show()
 
 
 # 円の描画
+%matplotlib inline
+import matplotlib.pyplot as plt
+import numpy as np
+
+
 a = 200
 b = 300
 
@@ -107,3 +112,14 @@ plt.plot(x, y2)
 plt.axis('equal')
 plt.grid(color='0.8')
 plt.show()
+
+
+# 点から直線までの距離
+math.fabs(a*x + b*y + c) / math.sqrt(a**2 + b**2)
+
+# ヘロンの公式
+a = math.sqrt((x[1]-x[0])**2 + (y[1]-y[0])**2)
+b = math.sqrt((x[2]-x[1])**2 + (y[2]-y[1])**2)
+c = math.sqrt((x[2]-x[0])**2 + (y[2]-y[0])**2)
+s = (a+b+c) / 2
+math.sqrt(s * (s-a) * (s-b) * (s-c))
