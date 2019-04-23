@@ -46,3 +46,19 @@ plt.plot(p2[0, :], p2[1, :])
 plt.axis('equal')
 plt.grid(color='0.8')
 plt.show()
+
+# 図形の相似拡大
+p = np.matrix([[1, 1, 2, 1], [3, 1, 1, 3]])
+
+A = np.matrix([[3, 0], [0, 3]])
+
+p2 = A * p
+print(p2)
+
+p = np.array(p)
+p2 = np.array(p2)
+plt.plot(p[0, :], p[1, :])
+plt.plot(p2[0, :], p2[1, :])
+plt.axis('equal')
+plt.grid(color='0.8')
+plt.show()
