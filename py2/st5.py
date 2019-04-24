@@ -62,3 +62,9 @@ plt.plot(p2[0, :], p2[1, :])
 plt.axis('equal')
 plt.grid(color='0.8')
 plt.show()
+
+# 図形の回転
+p = np.matrix([[3, 3, 5, 5, 3], [3, 1, 1, 3, 3]])
+
+th = np.radians(45)
+A = np.matrix([[np.cos(th), np.sin(-th)], [np.sin(th), np.cons(th)]])
